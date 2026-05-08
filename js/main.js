@@ -5,7 +5,7 @@ $(document).ready(function(){
     // Llegir preu del productes des de l'arxiu
     async function cargarProductes() {
         try {
-            const resp = await fetch('/js/productes.json');
+            const resp = await fetch('/barra-mdk/js/productes.json');
             productes = await resp.json();
 
         } catch (error) {
@@ -115,7 +115,7 @@ $(document).ready(function(){
         let contador = parseInt(recompte_birra.val()) + 1;
 
         recompte_birra.val(contador);
-        total_birra.val((contador * productes.birra) + '€');
+        total_birra.val((contador * productes[birra]) + '€');
 
         calcularTotal();
     })
@@ -124,7 +124,7 @@ $(document).ready(function(){
         let contador = parseInt(recompte_convinat.val()) + 1;
 
         recompte_convinat.val(contador);
-        total_convinat.val((contador * productes.convinat) + '€');
+        total_convinat.val((contador * productes[convinat]) + '€');
 
         calcularTotal();
     })
@@ -133,7 +133,7 @@ $(document).ready(function(){
         let contador = parseInt(recompte_xarrup.val()) + 1;
 
         recompte_xarrup.val(contador);
-        total_xarrup.val((contador * productes.xarrup) + '€');
+        total_xarrup.val((contador * productes[xarrup]) + '€');
 
         calcularTotal();
     })
@@ -142,7 +142,7 @@ $(document).ready(function(){
         let contador = parseInt(recompte_vermut.val()) + 1;
 
         recompte_vermut.val(contador);
-        total_vermut.val((contador * productes.vermut) + '€');
+        total_vermut.val((contador * productes[vermut]) + '€');
 
         calcularTotal();
     })
@@ -151,7 +151,7 @@ $(document).ready(function(){
         let contador = parseInt(recompte_calimotxo.val()) + 1;
         
         recompte_calimotxo.val(contador);
-        total_calimotxo.val((contador * productes.calimotxo) + '€');
+        total_calimotxo.val((contador * productes[calimotxo]) + '€');
 
         calcularTotal();
     })
@@ -160,7 +160,7 @@ $(document).ready(function(){
         let contador = parseInt(recompte_refresc.val()) + 1;
         
         recompte_refresc.val(contador);
-        total_refresc.val((contador * productes.refresc) + '€');
+        total_refresc.val((contador * productes[refresc]) + '€');
 
         calcularTotal();
     })
@@ -169,7 +169,7 @@ $(document).ready(function(){
         let contador = parseInt(recompte_got.val()) + 1;
         
         recompte_got.val(contador);
-        total_got.val((contador * productes.got) + '€');
+        total_got.val((contador * productes[got]) + '€');
 
         calcularTotal();
     })
