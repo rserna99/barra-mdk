@@ -5,7 +5,7 @@ $(document).ready(function(){
     // Llegir preu del productes des de l'arxiu
     async function cargarProductes() {
         try {
-            const resp = await fetch('./productes.json');
+            const resp = await fetch('productes.json');
             productes = await resp.json();
 
         } catch (error) {
