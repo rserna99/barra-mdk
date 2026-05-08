@@ -1,4 +1,22 @@
 $(document).ready(function(){
+
+    let productes = {};
+
+    // Llegir preu del productes des de l'arxiu
+    async function cargarProductes() {
+        try {
+            const resp = await fetch('productes.json');
+            productes = await resp.json();
+
+        } catch (error) {
+            console.error("Error al llegir llista productes");
+            console.log(error);
+        }
+    }
+
+    cargarProductes();
+
+
     // Elements
     let btn_birra = $('#birra');
     let recompte_birra = $('#recompte_birra');
@@ -36,20 +54,18 @@ $(document).ready(function(){
     let preu_got = 1;
 
     let total = $('#total');
-    let efectiu = $('#canvi_donat');
+    let efectiu = $('#efectiu_donat');
     let canvi_retorn = $('#canvi_retorn');
 
     let btn_esborrar = $('#esborrar');
 
     function calcularCanvi(){
 
-        // controlar que ara canvi pot tenir un valor null perque aparegui el placeholder
         if (efectiu.val() != ''){
             let retorn = efectiu.val() - total.val().slice(0, -1);
             
             if (retorn > 0){
                 canvi_retorn.val(retorn + '€');
-   
             }
             else {
                 canvi_retorn.val(0);
@@ -57,20 +73,40 @@ $(document).ready(function(){
         }
     }
 
-    function calcularTotal(){
-        let suma_birra = parseFloat(preu_birra) * parseInt(recompte_birra.val());
-        let suma_convinat = parseFloat(preu_convinat) * parseInt(recompte_convinat.val());
-        let suma_xarrup = parseFloat(preu_xarrup) * parseInt(recompte_xarrup.val());
-        let suma_vermut = parseFloat(preu_vermut) * parseInt(recompte_vermut.val());
-        let suma_calimotxo = parseFloat(preu_calimotxo) * parseInt(recompte_calimotxo.val());
+    // function calcularTotal(){
+    //     let suma_birra = parseFloat(preu_birra) * parseInt(recompte_birra.val());
+    //     let suma_convinat = parseFloat(preu_convinat) * parseInt(recompte_convinat.val());
+    //     let suma_xarrup = parseFloat(preu_xarrup) * parseInt(recompte_xarrup.val());
+    //     let suma_vermut = parseFloat(preu_vermut) * parseInt(recompte_vermut.val());
+    //     let suma_calimotxo = parseFloat(preu_calimotxo) * parseInt(recompte_calimotxo.val());
 
-        let suma_refresc = parseFloat(preu_refresc) * parseInt(recompte_refresc.val());
-        let suma_got = parseFloat(preu_got) * parseInt(recompte_got.val());
+    //     let suma_refresc = parseFloat(preu_refresc) * parseInt(recompte_refresc.val());
+    //     let suma_got = parseFloat(preu_got) * parseInt(recompte_got.val());
 
-        let suma_total = (suma_birra + suma_convinat + suma_xarrup + suma_vermut + suma_calimotxo + suma_refresc + suma_got);
+    //     let suma_total = (suma_birra + suma_convinat + suma_xarrup + suma_vermut + suma_calimotxo + suma_refresc + suma_got);
 
-        total.val(suma_total + '€');
+    //     total.val(suma_total + '€');
 
+    //     calcularCanvi();
+    // }
+
+    function calcularTotal() {
+        let suma_total = 0;
+
+        // Recorrer la llista de preus
+        for (const beguda in productes) {
+            
+            const item = $(`#recompte_${beguda}`);
+        
+            if (item.length > 0) {
+                const preu = productes[beguda];
+                const cuantitat = parseInt(item.val()) || 0;
+                suma_total += preu * cuantitat;
+            }
+        }
+
+        // Actualizar DOM amb el resultat i calcular el canvi a retornar
+        total.val(suma_total.toFixed(2) + '€');
         calcularCanvi();
     }
     

@@ -9,6 +9,7 @@ const CORE_ASSETS = [
   'js/bootstrap.min.js',
   'js/jquery.min.js',
   'js/main.js',
+  'js/productes.json',
   'css/tipo/Arkitech_Medium_Stencil.ttf',
   'css/tipo/Roboto.ttf',
   'css/bootstrap.min.css',
