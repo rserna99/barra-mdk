@@ -115,6 +115,10 @@ $(document).ready(function(){
         let contador = parseInt(recompte_birra.val()) + 1;
 
         recompte_birra.val(contador);
+
+        console.log(productes[birra]);
+        console.log(productes)
+
         total_birra.val((contador * productes[birra]) + '€');
 
         calcularTotal();
