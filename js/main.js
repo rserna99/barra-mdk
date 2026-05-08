@@ -117,6 +117,7 @@ $(document).ready(function(){
         recompte_birra.val(contador);
 
         console.log(productes[birra]);
+        console.log(productes.birra);
         console.log(productes)
 
         total_birra.val((contador * productes[birra]) + '€');
