@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Barra Medikatek</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Barra MDK">
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="img/logo.png">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/bootstrap.min.js" defer></script>
+    <script src="js/main.js" defer></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW actiu:', reg.scope))
+                    .catch(err => console.error('SW error:', err));
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 id="titol" class="text-center my-3">
+            MEDIKATEK <img src="img/logo.svg" style="width: clamp(32px, 5vw, 48px)" alt="Logo">
+        </h1>
+        
+        <div class="card shadow-sm">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex align-items-center">
+                    <button class="w-50 btn-barra border-0 bg-transparent" id="birra">
+                        <img src="img/birra.svg" style="width: clamp(32px, 10vw, 64px)" alt="Birra">
+                    </button>
+                    <input type="text" disabled id="recompte_birra" value="0" class="w-25 text-center border-0 bg-light">
+                    <input type="text" disabled id="total_birra" value="0€" class="w-25 text-center border-0 inp-bold">
+                </li>
+
+                <li class="list-group-item d-flex align-items-center">
+                    <button class="w-50 btn-barra border-0 bg-transparent" id="convinat">
+                        <img src="img/cubata.svg" style="width: clamp(32px, 10vw, 64px)" alt="Cubata">
+                    </button>
+                    <input type="text" disabled value="0" id="recompte_convinat" class="w-25 text-center border-0 bg-light">
+                    <input type="text" disabled value="0€" id="total_convinat" class="w-25 text-center border-0 inp-bold">
+                </li>
+
+                <li class="list-group-item d-flex align-items-center">
+                    <button class="w-50 btn-barra border-0 bg-transparent" id="xarrup">
+                        <img src="img/xarrup.svg" style="width: clamp(32px, 10vw, 64px)" alt="Xarrup">
+                    </button>
+                    <input type="text" disabled value="0" id="recompte_xarrup" class="w-25 text-center border-0 bg-light">
+                    <input type="text" disabled value="0€" id="total_xarrup" class="w-25 text-center border-0 inp-bold">
+                </li>
+
+                <li class="list-group-item d-flex align-items-center">
+                    <button class="w-50 btn-barra border-0 bg-transparent" id="vermut">
+                        <img src="img/vermut.svg" style="width: clamp(32px, 10vw, 64px)" alt="Vermut">
+                    </button>
+                    <input type="text" disabled value="0" id="recompte_vermut" class="w-25 text-center border-0 bg-light">
+                    <input type="text" disabled value="0€" id="total_vermut" class="w-25 text-center border-0 inp-bold">
+                </li>
+
+                <li class="list-group-item d-flex align-items-center">
+                    <button class="w-50 btn-barra border-0 bg-transparent" id="calimotxo">
+                        <img src="img/calimotxo.svg" style="width: clamp(32px, 10vw, 64px)" alt="Calimotxo">
+                    </button>
+                    <input type="text" disabled value="0" id="recompte_calimotxo" class="w-25 text-center border-0 bg-light">
+                    <input type="text" disabled value="0€" id="total_calimotxo" class="w-25 text-center border-0 inp-bold">
+                </li>
+
+                <li class="list-group-item d-flex align-items-center">
+                    <button class="w-50 btn-barra border-0 bg-transparent" id="refresc">
+                        <img src="img/refresc.svg" style="width: clamp(32px, 10vw, 64px)" alt="Refresc">
+                    </button>
+                    <input type="text" disabled value="0" id="recompte_refresc" class="w-25 text-center border-0 bg-light">
+                    <input type="text" disabled value="0€" id="total_refresc" class="w-25 text-center border-0 inp-bold">
+                </li>
+
+                <li class="list-group-item d-flex align-items-center">
+                    <button class="w-50 btn-barra border-0 bg-transparent" id="got">
+                        <img src="img/got.svg" style="width: clamp(32px, 10vw, 64px)" alt="Got">
+                    </button>
+                    <input type="text" disabled value="0" id="recompte_got" class="w-25 text-center border-0 bg-light">
+                    <input type="text" disabled value="0€" id="total_got" class="w-25 text-center border-0 inp-bold">
+                </li>
+            </ul>
+        </div>
+
+        <div class="card mt-4 mb-5 p-3 shadow-sm">
+            <div class="d-flex align-items-center mb-2">
+                <h2 class="h5 w-50 mb-0">EFECTIU</h2>
+                <input type="number" min="0" class="form-control w-50" placeholder="Import" id="canvi_donat">
+            </div>
+            <div class="d-flex align-items-center mb-3">
+                <h2 class="h5 w-50 mb-0">CANVI</h2>
+                <input type="text" class="form-control w-50 inp-bold" disabled value="0€" id="canvi_retorn">
+            </div>
+
+            <hr>
+
+            <div class="d-flex align-items-center mb-3">
+                <h1 class="h3 w-50 mb-0">TOTAL</h1>
+                <input type="text" class="form-control form-control-lg w-50 text-danger inp-bold" disabled value="0€" id="total">
+            </div>
+
+            <div class="d-grid">
+                <button class="btn btn-outline-danger btn-lg" id="esborrar">ESBORRAR TOT</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

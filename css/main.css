@@ -1,0 +1,82 @@
+@font-face {
+  font-family: 'ArkitechMedium';
+  src: url('tipo/Arkitech_Medium_Stencil.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('tipo/Roboto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.btn-barra {
+    background-color: black;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+.inp-barra {
+    text-align: center;
+    font-size: larger;
+    margin: 2px;
+    
+}
+
+body{
+    background: linear-gradient(180deg, #f0f2f5 0%, #c3cfe2 100%);
+    font-family: 'ArkitechMedium', sans-serif;
+}
+
+.card {
+    background: radial-gradient(135deg, #ffffff 0%, #f3f3f3 100%);
+    backdrop-filter: blur(10px); 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+#titol {
+    display: flex;         
+    justify-content: center; 
+    align-items: center;     
+    gap: 15px;               
+    width: 100%;             
+    margin: 20px 0;          
+    font-family: 'ArkitechMedium', sans-serif; 
+    font-weight: bold;
+}   
+
+input {
+    font-family: 'Roboto', sans-serif;
+}
+
+input:disabled {
+
+    background-color: white;
+
+    border: none;
+    background: transparent;
+}
+
+
+input[type="number"], input[type="text"] {
+    -webkit-user-select: auto !important;
+    user-select: auto !important;
+    touch-action: manipulation;
+}
+
+.btn-barra {
+    touch-action: manipulation;
+}
+
+.inp-bold {
+    font-weight: bold;
+}
+    
