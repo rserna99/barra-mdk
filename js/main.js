@@ -11,7 +11,7 @@ $(document).ready(function(){
             const resposta = await fetch('/barra-mdk/js/productes.json');
             const llista = await resposta.json();
         
-            const contenidor = $('#llista-productes'); // On van els botons
+            const contenidor = $('#llista_productes'); // On van els botons
             
             console.log("Començar a generar la llista de productes");
 
@@ -31,7 +31,7 @@ $(document).ready(function(){
                 `;
                 console.log(card);
                 console.log(contenidor);
-                
+
                 contenidor.append(card);
 
                 // 3. Creem la "variable global" dins de l'objecte UI
