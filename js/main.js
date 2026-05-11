@@ -17,7 +17,7 @@ $(document).ready(function(){
 
             llista.forEach(p => {
                 // 1. Guardem la info en un objecte indexat pel nom per accedir ràpid
-                dadesProductes[p.nom] = p;
+                productes[p.nom] = p;
 
                 // 2. Generem l'HTML dinàmicament
                 const card = `
@@ -51,7 +51,7 @@ $(document).ready(function(){
         const id = $(this).data('id'); 
         
         // Accedim a la info del producte i als elements del DOM guardats a UI
-        const producte = dadesProductes[id];
+        const producte = productes[id];
         const elements = UI[id];
 
         // 1. Obtenir el valor actual de l'input de recompte
