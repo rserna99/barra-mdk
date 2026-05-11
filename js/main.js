@@ -70,16 +70,16 @@ $(document).ready(function(){
     
 
 
-    async function cargarProductes() {
-        try {
-            const resp = await fetch('/barra-mdk/js/productes.json');
-            productes = await resp.json();
+    // async function cargarProductes() {
+    //     try {
+    //         const resp = await fetch('/barra-mdk/js/productes.json');
+    //         productes = await resp.json();
 
-        } catch (error) {
-            console.error("Error al llegir llista productes");
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.error("Error al llegir llista productes");
+    //         console.log(error);
+    //     }
+    // }
 
     cargarProductes();
 
