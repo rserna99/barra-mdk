@@ -1,8 +1,75 @@
 $(document).ready(function(){
 
-    let productes = {};
+    let productes = {}; // LLista amb els diferents productes
+    let UI = {}; // Llista amb els elements HTML dels productes
 
     // Llegir preu del productes des de l'arxiu
+    async function cargarProductes() {
+        try {
+            const resposta = await fetch('productes.json');
+            const llista = await resposta.json();
+        
+            const contenidor = $('#llista-productes'); // On van els botons
+        
+            llista.forEach(p => {
+                // 1. Guardem la info en un objecte indexat pel nom per accedir ràpid
+                dadesProductes[p.nom] = p;
+
+                // 2. Generem l'HTML dinàmicament
+                const card = `
+                    <li class="list-group-item d-flex align-items-center">
+                        <button class="w-50 btn-barra border-0 bg-transparent" id="birra">
+                            <img src="${p.ruta_img}" style="width: 128px" alt="${p.nom}">
+                        </button>
+                        <input type="text" disabled id="recompte_${p.nom}" value="0" class="w-25 inp-barra">
+                        <input type="text" disabled id="total_${p.nom}" value="0€" class="w-25 inp-barra">
+                    </li>
+                `;
+                contenidor.append(card);
+
+                // 3. Creem la "variable global" dins de l'objecte UI
+                UI[p.nom] = {
+                    recompte: $(`#recompte_${p.nom}`),
+                    total: $(`#total_${p.nom}`)
+                };
+            });
+
+            iniciarEvents();
+        
+        } catch (e) {
+            console.error("Error carregant el JSON", e);
+        }
+    }
+
+    function iniciarEvents() {
+        // 'this' fa referència al botó que s'ha clicat. 
+        // Amb $(this).data('id') obtenim el nom del producte (birra, refresc, etc.)
+        const id = $(this).data('id'); 
+        
+        // Accedim a la info del producte i als elements del DOM guardats a UI
+        const producte = dadesProductes[id];
+        const elements = UI[id];
+
+        // 1. Obtenir el valor actual de l'input de recompte
+        let quantitat = parseInt(elements.recompte.val()) + 1;
+
+        // 2. Actualitzar l'input de recompte
+        elements.recompte.val(quantitat);
+
+        // 3. Calcular el total d'aquest producte i actualitzar l'input de total
+        // fem servir .toFixed(2) per assegurar-nos que sempre hi hagi 2 decimals
+        let preuTotalProducte = (quantitat * producte.preu).toFixed(2);
+        elements.total.val(preuTotalProducte + '€');
+
+        // 4. Executar la funció general que suma tots els productes
+        // Fem una comprovació de seguretat per si la funció existeix
+        if ($.isFunction(window.calcularTotal)) {
+            calcularTotal();
+        }
+}
+    
+
+
     async function cargarProductes() {
         try {
             const resp = await fetch('/barra-mdk/js/productes.json');
@@ -72,23 +139,6 @@ $(document).ready(function(){
             }
         }
     }
-
-    // function calcularTotal(){
-    //     let suma_birra = parseFloat(preu_birra) * parseInt(recompte_birra.val());
-    //     let suma_convinat = parseFloat(preu_convinat) * parseInt(recompte_convinat.val());
-    //     let suma_xarrup = parseFloat(preu_xarrup) * parseInt(recompte_xarrup.val());
-    //     let suma_vermut = parseFloat(preu_vermut) * parseInt(recompte_vermut.val());
-    //     let suma_calimotxo = parseFloat(preu_calimotxo) * parseInt(recompte_calimotxo.val());
-
-    //     let suma_refresc = parseFloat(preu_refresc) * parseInt(recompte_refresc.val());
-    //     let suma_got = parseFloat(preu_got) * parseInt(recompte_got.val());
-
-    //     let suma_total = (suma_birra + suma_convinat + suma_xarrup + suma_vermut + suma_calimotxo + suma_refresc + suma_got);
-
-    //     total.val(suma_total + '€');
-
-    //     calcularCanvi();
-    // }
 
     function calcularTotal() {
         let suma_total = 0;
