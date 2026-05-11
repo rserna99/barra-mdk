@@ -5,12 +5,16 @@ $(document).ready(function(){
 
     // Llegir preu del productes des de l'arxiu
     async function cargarProductes() {
+        console.log("init");
+
         try {
             const resposta = await fetch('productes.json');
             const llista = await resposta.json();
         
             const contenidor = $('#llista-productes'); // On van els botons
-        
+            
+            console.log("Començar a generar la llista de productes");
+
             llista.forEach(p => {
                 // 1. Guardem la info en un objecte indexat pel nom per accedir ràpid
                 dadesProductes[p.nom] = p;
