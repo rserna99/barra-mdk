@@ -8,7 +8,7 @@ $(document).ready(function(){
         console.log("init");
 
         try {
-            const resposta = await fetch('productes.json');
+            const resposta = await fetch('/barra-mdk/js/productes.json');
             const llista = await resposta.json();
         
             const contenidor = $('#llista-productes'); // On van els botons
