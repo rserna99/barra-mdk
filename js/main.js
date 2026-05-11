@@ -22,7 +22,7 @@ $(document).ready(function(){
                 // 2. Generem l'HTML dinàmicament
                 const card = `
                     <li class="list-group-item d-flex align-items-center">
-                        <button class="w-50 btn-barra border-0 bg-transparent" id="birra">
+                        <button class="w-50 btn-barra border-0 bg-transparent" data-id="${p.nom}">
                             <img src="${p.ruta_img}" style="width: 128px" alt="${p.nom}">
                         </button>
                         <input type="text" disabled id="recompte_${p.nom}" value="0" class="w-25 inp-barra">
@@ -46,31 +46,25 @@ $(document).ready(function(){
     }
 
     function iniciarEvents() {
-        // 'this' fa referència al botó que s'ha clicat. 
-        // Amb $(this).data('id') obtenim el nom del producte (birra, refresc, etc.)
-        const id = $(this).data('id'); 
-        
-        // Accedim a la info del producte i als elements del DOM guardats a UI
-        const producte = productes[id];
-        const elements = UI[id];
+        // CORRECCIÓ: Fem servir delegació per escoltar el clic
+        $(document).off('click', '.btn-barra').on('click', '.btn-barra', function() {
+            const id = $(this).data('id'); // Recuperem el nom (birra, vermut...)
+            
+            if (!id || !UI[id]) return; // Seguretat: si no hi ha ID, no fem res
 
-        // 1. Obtenir el valor actual de l'input de recompte
-        let quantitat = parseInt(elements.recompte.val()) + 1;
+            const producteInfo = productes[id];
+            const elements = UI[id];
 
-        // 2. Actualitzar l'input de recompte
-        elements.recompte.val(quantitat);
+            let quantitat = parseInt(elements.recompte.val()) + 1;
+            elements.recompte.val(quantitat);
 
-        // 3. Calcular el total d'aquest producte i actualitzar l'input de total
-        // fem servir .toFixed(2) per assegurar-nos que sempre hi hagi 2 decimals
-        let preuTotalProducte = (quantitat * producte.preu).toFixed(2);
-        elements.total.val(preuTotalProducte + '€');
+            let preuTotalProducte = (quantitat * producteInfo.preu).toFixed(2);
+            elements.total.val(preuTotalProducte + '€');
 
-        // 4. Executar la funció general que suma tots els productes
-        // Fem una comprovació de seguretat per si la funció existeix
-        if ($.isFunction(window.calcularTotal)) {
             calcularTotal();
-        }
-}
+        });
+    }
+
     
 
 
