@@ -29,6 +29,8 @@ $(document).ready(function(){
                         <input type="text" disabled id="total_${p.nom}" value="0€" class="w-25 inp-barra">
                     </li>
                 `;
+                console.log(card);
+                
                 contenidor.append(card);
 
                 // 3. Creem la "variable global" dins de l'objecte UI
