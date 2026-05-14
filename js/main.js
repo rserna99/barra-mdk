@@ -3,6 +3,12 @@ $(document).ready(function(){
     let productes = {}; // LLista amb els diferents productes
     let UI = {}; // Llista amb els elements HTML dels productes
 
+    // let total = $('#total');
+    // let efectiu = $('#efectiu_donat');
+    // let canvi_retorn = $('#canvi_retorn');
+
+    let btn_esborrar = $('#esborrar');
+
     // Llegir preu del productes des de l'arxiu
     async function cargarProductes() {
         console.log("init");
@@ -13,8 +19,6 @@ $(document).ready(function(){
         
             const contenidor = $('#llista_productes'); // On van els botons
             
-            console.log("Començar a generar la llista de productes");
-
             llista.forEach(p => {
                 // 1. Guardem la info en un objecte indexat pel nom per accedir ràpid
                 productes[p.nom] = p;
@@ -29,17 +33,21 @@ $(document).ready(function(){
                         <input type="text" disabled id="total_${p.nom}" value="0€" class="w-25 inp-barra">
                     </li>
                 `;
-                console.log(card);
-                console.log(contenidor);
 
                 contenidor.append(card);
 
-                // 3. Creem la "variable global" dins de l'objecte UI
+                // 3. Afegim els elements de la UI dels diferents productes dins de la variable
                 UI[p.nom] = {
                     recompte: $(`#recompte_${p.nom}`),
                     total: $(`#total_${p.nom}`)
                 };
             });
+
+            // 4. Afegim els elements fixos de la UI
+            UI[total] = $('#total');
+            UI[efectiu] = $('#efectiu_donat');
+            UI[canvi_retorn] = $('#canvi_retorn');
+            UI[btn_esborrar] = $('#esborrar');
 
             iniciarEvents();
         
@@ -48,9 +56,12 @@ $(document).ready(function(){
         }
     }
 
+    // Crear els diferents events
     function iniciarEvents() {
-        // CORRECCIÓ: Fem servir delegació per escoltar el clic
+
+        //TODO afegir el botor de esborrar i la resta d'inputs restant
         $(document).off('click', '.btn-barra').on('click', '.btn-barra', function() {
+            
             const id = $(this).data('id'); // Recuperem el nom (birra, vermut...)
             
             if (!id || !UI[id]) return; // Seguretat: si no hi ha ID, no fem res
@@ -68,194 +79,146 @@ $(document).ready(function(){
         });
     }
 
-    
 
-
-    // async function cargarProductes() {
-    //     try {
-    //         const resp = await fetch('/barra-mdk/js/productes.json');
-    //         productes = await resp.json();
-
-    //     } catch (error) {
-    //         console.error("Error al llegir llista productes");
-    //         console.log(error);
-    //     }
-    // }
-
-    cargarProductes();
-
-
-    // Elements
-    // let btn_birra = $('#birra');
-    // let recompte_birra = $('#recompte_birra');
-    // let total_birra = $('#total_birra');
-    //let preu_birra = 2;
-
-    // let btn_convinat = $('#convinat');
-    // let recompte_convinat = $('#recompte_convinat');
-    // let total_convinat = $('#total_convinat');
-    //let preu_convinat = 5;
-
-    // let btn_xarrup = $('#xarrup');
-    // let recompte_xarrup = $('#recompte_xarrup');
-    // let total_xarrup = $('#total_xarrup');
-    //let preu_xarrup = 2;
-
-    // let btn_vermut = $('#vermut');
-    // let recompte_vermut = $('#recompte_vermut');
-    // let total_vermut = $('#total_vermut');
-    //let preu_vermut = 4;
-
-    // let btn_calimotxo = $('#calimotxo');
-    // let recompte_calimotxo = $('#recompte_calimotxo');
-    // let total_calimotxo = $('#total_calimotxo');
-    //let preu_calimotxo = 4;
-
-    // let btn_refresc = $('#refresc');
-    // let recompte_refresc = $('#recompte_refresc');
-    // let total_refresc = $('#total_refresc');
-    //let preu_refresc = 2;
-
-    // let btn_got = $('#got');
-    // let recompte_got = $('#recompte_got');
-    // let total_got = $('#total_got');
-    //let preu_got = 1;
-
-    let total = $('#total');
-    let efectiu = $('#efectiu_donat');
-    let canvi_retorn = $('#canvi_retorn');
-
-    let btn_esborrar = $('#esborrar');
-
+    // TODO
     function calcularCanvi(){
 
-        if (efectiu.val() != ''){
-            let retorn = efectiu.val() - total.val().slice(0, -1);
+        if (UI[efectiu].val() != ''){
+            let retorn = UI[efectiu].val() - UI[total].val().slice(0, -1);
             
             if (retorn > 0){
-                canvi_retorn.val(retorn + '€');
+                UI[canvi_retorn].val(retorn + '€');
             }
             else {
-                canvi_retorn.val(0);
+                UI[canvi_retorn].val(0);
             }
         }
     }
 
+    // TODO
     function calcularTotal() {
         let suma_total = 0;
 
-        // Recorrer la llista de preus
-        for (const beguda in productes) {
-            
-            const item = $(`#recompte_${beguda}`);
-        
-            if (item.length > 0) {
-                const preu = productes[beguda];
-                const cuantitat = parseInt(item.val()) || 0;
-                suma_total += preu * cuantitat;
-            }
-        }
+        // Recorrer la llista de productes
+        $.each(productes, function(id, info) {
+            // Busquem el valor de l'input que hem guardat a UI
+            const quantitat = parseInt(UI[id].recompte.val()) || 0;
+            suma_total += quantitat * info.preu;
+        });
 
         // Actualizar DOM amb el resultat i calcular el canvi a retornar
-        total.val(suma_total.toFixed(2) + '€');
+        UI[total].val(suma_total.toFixed(2) + '€');
         calcularCanvi();
     }
     
     
-    btn_birra.click(function(){
-        let contador = parseInt(recompte_birra.val()) + 1;
+    // btn_birra.click(function(){
+    //     let contador = parseInt(recompte_birra.val()) + 1;
 
-        recompte_birra.val(contador);
-        total_birra.val((contador * productes.birra) + '€');
+    //     recompte_birra.val(contador);
+    //     total_birra.val((contador * productes.birra) + '€');
 
-        calcularTotal();
-    })
+    //     calcularTotal();
+    // })
 
-    btn_convinat.click(function(){
-        let contador = parseInt(recompte_convinat.val()) + 1;
+    // btn_convinat.click(function(){
+    //     let contador = parseInt(recompte_convinat.val()) + 1;
 
-        recompte_convinat.val(contador);
-        total_convinat.val((contador * productes.convinat) + '€');
+    //     recompte_convinat.val(contador);
+    //     total_convinat.val((contador * productes.convinat) + '€');
 
-        calcularTotal();
-    })
+    //     calcularTotal();
+    // })
 
-    btn_xarrup.click(function(){
-        let contador = parseInt(recompte_xarrup.val()) + 1;
+    // btn_xarrup.click(function(){
+    //     let contador = parseInt(recompte_xarrup.val()) + 1;
 
-        recompte_xarrup.val(contador);
-        total_xarrup.val((contador * productes.xarrup) + '€');
+    //     recompte_xarrup.val(contador);
+    //     total_xarrup.val((contador * productes.xarrup) + '€');
 
-        calcularTotal();
-    })
+    //     calcularTotal();
+    // })
 
-    btn_vermut.click(function(){
-        let contador = parseInt(recompte_vermut.val()) + 1;
+    // btn_vermut.click(function(){
+    //     let contador = parseInt(recompte_vermut.val()) + 1;
 
-        recompte_vermut.val(contador);
-        total_vermut.val((contador * productes.vermut) + '€');
+    //     recompte_vermut.val(contador);
+    //     total_vermut.val((contador * productes.vermut) + '€');
 
-        calcularTotal();
-    })
+    //     calcularTotal();
+    // })
 
-    btn_calimotxo.click(function(){
-        let contador = parseInt(recompte_calimotxo.val()) + 1;
+    // btn_calimotxo.click(function(){
+    //     let contador = parseInt(recompte_calimotxo.val()) + 1;
         
-        recompte_calimotxo.val(contador);
-        total_calimotxo.val((contador * productes.calimotxo) + '€');
+    //     recompte_calimotxo.val(contador);
+    //     total_calimotxo.val((contador * productes.calimotxo) + '€');
 
-        calcularTotal();
-    })
+    //     calcularTotal();
+    // })
 
-    btn_refresc.click(function(){
-        let contador = parseInt(recompte_refresc.val()) + 1;
+    // btn_refresc.click(function(){
+    //     let contador = parseInt(recompte_refresc.val()) + 1;
         
-        recompte_refresc.val(contador);
-        total_refresc.val((contador * productes.refresc) + '€');
+    //     recompte_refresc.val(contador);
+    //     total_refresc.val((contador * productes.refresc) + '€');
 
-        calcularTotal();
-    })
+    //     calcularTotal();
+    // })
 
-    btn_got.click(function(){
-        let contador = parseInt(recompte_got.val()) + 1;
+    // btn_got.click(function(){
+    //     let contador = parseInt(recompte_got.val()) + 1;
         
-        recompte_got.val(contador);
-        total_got.val((contador * productes.got) + '€');
+    //     recompte_got.val(contador);
+    //     total_got.val((contador * productes.got) + '€');
 
-        calcularTotal();
-    })
+    //     calcularTotal();
+    // })
 
-
-    efectiu.on('change', function() {
+    // TODO
+    UI[efectiu].on('change', function() {
         calcularCanvi();
     })
 
-    btn_esborrar.click(function () {  
+    // TODO
+    btn_esborrar.click(function () { 
+        
+        $.each(UI, function(id, element) {
+            element.recompte.val(0);
+            element.total.val('0€');
+        });
 
-        recompte_birra.val(0);
-        total_birra.val(0 + '€');
+        // Netegem els camps globals
+        UI[efectiu].val(null);
+        UI[canvi_retorn].val('');
+        UI[total].val('0.00€');
 
-        recompte_convinat.val(0);
-        total_convinat.val(0 + '€');
+        // recompte_birra.val(0);
+        // total_birra.val(0 + '€');
 
-        recompte_xarrup.val(0);
-        total_xarrup.val(0 + '€');
+        // recompte_convinat.val(0);
+        // total_convinat.val(0 + '€');
 
-        recompte_vermut.val(0);
-        total_vermut.val(0 + '€');
+        // recompte_xarrup.val(0);
+        // total_xarrup.val(0 + '€');
 
-        recompte_calimotxo.val(0);
-        total_calimotxo.val(0 + '€');
+        // recompte_vermut.val(0);
+        // total_vermut.val(0 + '€');
 
-        recompte_refresc.val(0);
-        total_refresc.val(0 + '€');
+        // recompte_calimotxo.val(0);
+        // total_calimotxo.val(0 + '€');
 
-        recompte_got.val(0);
-        total_got.val(0 + '€');
+        // recompte_refresc.val(0);
+        // total_refresc.val(0 + '€');
 
-        efectiu.val(null);
-        canvi_retorn.val(0);
-        total.val(0);
+        // recompte_got.val(0);
+        // total_got.val(0 + '€');
+
+        // efectiu.val(null);
+        // canvi_retorn.val(0);
+        // total.val(0);
     })
+
+    cargarProductes();
 
 })
