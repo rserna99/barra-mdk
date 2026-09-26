@@ -3,10 +3,9 @@ $(document).ready(function(){
     let productes = {}; // LLista amb els diferents productes
     let UI = {}; // Llista amb els elements HTML dels productes
 
-    // let total = $('#total');
+    let total = $('#total');
     let efectiu = $('#efectiu_donat');
-    // let canvi_retorn = $('#canvi_retorn');
-
+    let canvi_retorn = $('#canvi_retorn');
     let btn_esborrar = $('#esborrar');
 
     // Llegir preu del productes des de l'arxiu
@@ -44,10 +43,10 @@ $(document).ready(function(){
             });
 
             // 4. Afegim els elements fixos de la UI
-            UI[total] = $('#total');
-            UI[efectiu] = $('#efectiu_donat');
-            UI[canvi_retorn] = $('#canvi_retorn');
-            UI[btn_esborrar] = $('#esborrar');
+            UI.total = total;
+            UI.efectiu = efectiu;
+            UI.canvi_retorn = canvi_retorn;
+            UI.btn_esborrar = btn_esborrar;
 
             iniciarEvents();
         
@@ -83,14 +82,16 @@ $(document).ready(function(){
     // TODO
     function calcularCanvi(){
 
-        if (UI[efectiu].val() != ''){
-            let retorn = UI[efectiu].val() - UI[total].val().slice(0, -1);
-            
+        if (UI.efectiu && UI.efectiu.val() !== '') {
+            const efectiuDonat = parseFloat(UI.efectiu.val()) || 0;
+            const totalActual = parseFloat(UI.total.val().replace('€', '')) || 0;
+            const retorn = efectiuDonat - totalActual;
+
             if (retorn > 0){
-                UI[canvi_retorn].val(retorn + '€');
+                UI.canvi_retorn.val(retorn.toFixed(2) + '€');
             }
             else {
-                UI[canvi_retorn].val(0);
+                UI.canvi_retorn.val('0.00€');
             }
         }
     }
@@ -107,7 +108,7 @@ $(document).ready(function(){
         });
 
         // Actualizar DOM amb el resultat i calcular el canvi a retornar
-        UI[total].val(suma_total.toFixed(2) + '€');
+        UI.total.val(suma_total.toFixed(2) + '€');
         calcularCanvi();
     }
     
@@ -176,22 +177,21 @@ $(document).ready(function(){
     // })
 
     // TODO
-    UI[efectiu].on('change', function() {
+    efectiu.on('change', function() {
         calcularCanvi();
     })
 
     // TODO
-    btn_esborrar.click(function () { 
-        
-        $.each(UI, function(id, element) {
-            element.recompte.val(0);
-            element.total.val('0€');
+    btn_esborrar.click(function () {
+        $.each(productes, function(id) {
+            UI[id].recompte.val(0);
+            UI[id].total.val('0€');
         });
 
         // Netegem els camps globals
-        UI[efectiu].val(null);
-        UI[canvi_retorn].val('');
-        UI[total].val('0.00€');
+        UI.efectiu.val(null);
+        UI.canvi_retorn.val('0.00€');
+        UI.total.val('0.00€');
 
         // recompte_birra.val(0);
         // total_birra.val(0 + '€');
