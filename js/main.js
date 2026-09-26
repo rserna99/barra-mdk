@@ -4,7 +4,7 @@ $(document).ready(function(){
     let UI = {}; // Llista amb els elements HTML dels productes
 
     // let total = $('#total');
-    // let efectiu = $('#efectiu_donat');
+    let efectiu = $('#efectiu_donat');
     // let canvi_retorn = $('#canvi_retorn');
 
     let btn_esborrar = $('#esborrar');
