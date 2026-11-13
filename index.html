@@ -36,33 +36,37 @@
             MEDIKATEK <img src="img/logo.svg" style="width: clamp(96px, 5vw, 48px)" alt="Logo">
         </h1>
         
-        <div class="card shadow-sm">
-            <ul class="list-group list-group-flush" id="llista_productes">
-                
-                
-            </ul>
-        </div>
+        <div class="row">
+            <section class="col-12 col-md-8" aria-label="Productes">
+                <div class="card shadow-sm">
+                    <ul class="list-group list-group-flush" id="llista_productes">
+                    </ul>
+                </div>
+            </section>
 
-        <div class="card mt-4 mb-5 p-3 shadow-sm">
-            <div class="d-flex align-items-center mb-2">
-                <h2 class="h5 w-50 mb-0">EFECTIU</h2>
-                <input type="number" min="0" class="form-control w-50" placeholder="Import" id="efectiu_donat">
-            </div>
-            <div class="d-flex align-items-center mb-3">
-                <h2 class="h5 w-50 mb-0">CANVI</h2>
-                <input type="text" class="form-control w-50 inp-bold" disabled value="0€" id="canvi_retorn">
-            </div>
+            <section class="col-12 col-md-4" aria-label="Calculadora de canvi">
+                <div class="card mt-4 mt-md-0 mb-5 p-3 shadow-sm">
+                    <div class="d-flex align-items-center mb-2">
+                        <h2 class="h5 w-50 mb-0">EFECTIU</h2>
+                        <input type="number" min="0" class="form-control w-50" placeholder="Import" id="efectiu_donat">
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <h2 class="h5 w-50 mb-0">CANVI</h2>
+                        <input type="text" class="form-control w-50 inp-bold" disabled value="0€" id="canvi_retorn">
+                    </div>
 
-            <hr>
+                    <hr>
 
-            <div class="d-flex align-items-center mb-3">
-                <h1 class="h3 w-50 mb-0">TOTAL</h1>
-                <input type="text" class="form-control form-control-lg w-50 inp-bold" disabled value="0€" id="total">
-            </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <h1 class="h3 w-50 mb-0">TOTAL</h1>
+                        <input type="text" class="form-control form-control-lg w-50 inp-bold" disabled value="0€" id="total">
+                    </div>
 
-            <div class="d-grid">
-                <button class="btn btn-outline-danger btn-lg" id="esborrar">ESBORRAR</button>
-            </div>
+                    <div class="d-grid">
+                        <button class="btn btn-outline-danger btn-lg" id="esborrar">ESBORRAR</button>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </body>

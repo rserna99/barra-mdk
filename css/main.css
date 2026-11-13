@@ -18,6 +18,10 @@
     margin-right: 5px;
 }
 
+#llista_productes img {
+    border-radius: 8px;
+}
+
 .inp-barra {
     text-align: center;
     font-size: larger;
