@@ -83,4 +83,17 @@ input[type="number"], input[type="text"] {
 .inp-bold {
     font-weight: bold;
 }
+
+@media (min-width: 768px) {
+    .productes-scroll {
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
+    }
+
+    .calculadora-sticky {
+        position: sticky;
+        top: 1rem;
+        align-self: flex-start;
+    }
+}
     
