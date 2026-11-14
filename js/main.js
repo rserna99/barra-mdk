@@ -30,8 +30,8 @@ $(document).ready(function(){
                         </button>
                         <input type="text" disabled id="recompte_${p.nom}" value="0" class="w-25 inp-barra">
                         <input type="text" disabled id="total_${p.nom}" value="0€" class="w-25 inp-barra">
-                        <button type="button" class="btn btn-sm btn-outline-secondary ms-2 btn-reset" data-id="${p.nom}" aria-label="Esborrar ${p.nom}">
-                            <img src="https://proicons.com/icon/516788.svg" alt="Esborrar ${p.nom}" style="width: 18px; height: 18px; display: block;">
+                        <button type="button" class="btn btn-sm btn-reset" data-id="${p.nom}" aria-label="Esborrar ${p.nom}">
+                            <img src="https://proicons.com/icon/516788.svg" alt="Esborrar ${p.nom}" style="width: 18px; height: 18px; display: block; filter: brightness(0) saturate(100%) invert(31%) sepia(80%) saturate(1749%) hue-rotate(335deg) brightness(97%) contrast(85%);">
                         </button>
                     </li>
                 `;

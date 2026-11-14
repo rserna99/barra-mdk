@@ -100,11 +100,33 @@ input[type="number"], input[type="text"] {
 }
 
 .btn-reset {
-    min-width: 64px;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    padding: 0.25rem;
+    border: 1px solid #dc3545;
+    background-color: transparent;
+    color: #dc3545;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    line-height: 1;
+    box-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.btn-reset:hover,
+.btn-reset:focus,
+.btn-reset:focus-visible,
+.btn-reset:active,
+.btn-reset.active {
+    background-color: rgba(220, 53, 69, 0.08);
+    border-color: #dc3545;
+    color: #dc3545;
+    box-shadow: none;
+    outline: none;
 }
 
 .inp-bold {
