@@ -24,7 +24,7 @@ $(document).ready(function(){
 
                 // 2. Generem l'HTML dinàmicament
                 const card = `
-                    <li class="list-group-item d-flex align-items-center">
+                    <li class="list-group-item d-flex align-items-center" data-id="${p.nom}">
                         <button class="w-50 btn-barra border-0 bg-transparent" data-id="${p.nom}">
                             <img src="${p.ruta_img}" style="width: 128px" alt="${p.nom}">
                         </button>
@@ -59,7 +59,7 @@ $(document).ready(function(){
     function iniciarEvents() {
 
         //TODO afegir el botor de esborrar i la resta d'inputs restant
-        $(document).off('click', '.btn-barra').on('click', '.btn-barra', function() {
+        $(document).off('click', '.list-group-item').on('click', '.list-group-item', function() {
             
             const id = $(this).data('id'); // Recuperem el nom (birra, vermut...)
             
