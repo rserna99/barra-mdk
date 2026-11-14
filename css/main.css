@@ -99,6 +99,14 @@ input[type="number"], input[type="text"] {
     touch-action: manipulation;
 }
 
+.btn-reset {
+    min-width: 64px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
 .inp-bold {
     font-weight: bold;
 }

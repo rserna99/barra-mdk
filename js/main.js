@@ -30,6 +30,9 @@ $(document).ready(function(){
                         </button>
                         <input type="text" disabled id="recompte_${p.nom}" value="0" class="w-25 inp-barra">
                         <input type="text" disabled id="total_${p.nom}" value="0€" class="w-25 inp-barra">
+                        <button type="button" class="btn btn-sm btn-outline-secondary ms-2 btn-reset" data-id="${p.nom}" aria-label="Esborrar ${p.nom}">
+                            <img src="https://proicons.com/icon/516788.svg" alt="Esborrar ${p.nom}" style="width: 18px; height: 18px; display: block;">
+                        </button>
                     </li>
                 `;
 
@@ -59,8 +62,20 @@ $(document).ready(function(){
     function iniciarEvents() {
 
         //TODO afegir el botor de esborrar i la resta d'inputs restant
-        $(document).off('click', '.list-group-item').on('click', '.list-group-item', function() {
-            
+        $(document).off('click', '.btn-reset').on('click', '.btn-reset', function(e) {
+            e.stopPropagation();
+
+            const id = $(this).data('id');
+            if (!id || !UI[id]) return;
+
+            UI[id].recompte.val(0);
+            UI[id].total.val('0€');
+            calcularTotal();
+        });
+
+        $(document).off('click', '.list-group-item').on('click', '.list-group-item', function(e) {
+            if ($(e.target).closest('.btn-reset').length) return;
+
             const id = $(this).data('id'); // Recuperem el nom (birra, vermut...)
             
             if (!id || !UI[id]) return; // Seguretat: si no hi ha ID, no fem res
