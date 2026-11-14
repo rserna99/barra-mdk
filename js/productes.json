@@ -11,32 +11,32 @@
     },
     {
         "nom": "convinat",
-        "ruta_img": "img/convinat.svg",
+        "ruta_img": "img/convinat_2.svg",
         "preu": 5.00
     },
     {
         "nom": "xarrup",
-        "ruta_img": "img/xarrup.svg",
+        "ruta_img": "img/xarrup_2.svg",
         "preu": 2.00
     },
     {
         "nom": "vermut",
-        "ruta_img": "img/vermut.svg",
+        "ruta_img": "img/vermut_2.svg",
         "preu": 3.00
     },
     {
         "nom": "calimotxo",
-        "ruta_img": "img/calimotxo.svg",
+        "ruta_img": "img/calimotxo_2.svg",
         "preu": 3.00
     },
     {
         "nom": "refresc",
-        "ruta_img": "img/refresc.svg",
+        "ruta_img": "img/refresc_2.svg",
         "preu": 1.00
     },
     {
         "nom": "got",
-        "ruta_img": "img/got.svg",
+        "ruta_img": "img/got_2.svg",
         "preu": 1.00
     }
 ]
