@@ -24,11 +24,20 @@
 
 #llista_productes.list-group-flush .list-group-item,
 #llista_productes.list-group-flush .list-group-item + .list-group-item {
-    border: 0;
+    border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     border-radius: 12px;
     margin: 8px 4px;
     background-color: rgba(255, 255, 255, 0.7);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+#llista_productes.list-group-flush .list-group-item:active,
+#llista_productes.list-group-flush .list-group-item:focus,
+#llista_productes.list-group-flush .list-group-item.selected {
+    border-color: rgba(100, 100, 100, 0.7);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+    transform: translateY(-1px);
 }
 
 .inp-barra {
